@@ -35,7 +35,7 @@ In a hypothetical situation, one may have a series of *constexpr* function templ
 3| has_property_n( ) { return ...; }
 ~~~~~~~~~~~~~~~~
 
-In this situation, there is a class template c that has a single type parameter, and the implementation of all the member functions of C depend on the truth values of the property inquiry functions. Currently in c++, n amount of property inquiries would require up to n non-type boolean template parameters which furthermore provide up to 2^n specializations. Much of this code is redundant. 
+In this situation, there is a class template, *C*, that has a single type parameter. The implementation of all the member functions of *C* depend on the truth values of the property inquiry functions. Currently, in C++, *n* amount of property inquiries would require up to *n* non-type boolean template parameters which furthermore provide up to *2^n* specializations. Much of this code is redundant. 
 
 Static_if statements are the solutions to desired functionality. Instead of tag dispatch, code duplication, and extra template parameters, one can solve the problem with an if statement structure as presented below.  
 
