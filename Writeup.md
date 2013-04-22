@@ -122,6 +122,9 @@ Sources
 =======
 
 Brown, Walter E. "A Preliminary Proposal for a Static If." Thesis. Open Standards, 2011. Open Standards. 11 Dec. 2011. Web. 20 Apr. 2013. <http://open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3322.pdf>.
+
 "C Preprocessor." Wikipedia. Wikimedia Foundation, n.d. Web. 20 Apr. 2013. <http://en.wikipedia.org/wiki/C_preprocessor>.
+
 McMahon, Kurt. "The C++ Compilation Process." The C++ Compilation Process. Kurt McMahon, n.d. Web. 20 Apr. 2013. <http://faculty.cs.niu.edu/~mcmahon/CS241/Notes/compile.html>.
+
 Stroustrup, Bjarne, Gabriel Dos Reis, and Andrew Sutton. "“Static If” Considered." Thesis. Open Standards, 2013. Open Standards. 16 Mar. 2013. Web. 20 Apr. 2013. <http://open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3613.pdf>.
