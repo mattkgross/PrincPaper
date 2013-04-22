@@ -100,6 +100,8 @@ This can be accordingly translated to the following static_if structure:
 12| }
 ~~~~~~~~~~~~~~~~
 
+From a parsing standpoint, the static_if implementation proves more friendly on the tokenizer, as only one template must be declared and its scoping extends to all three predicate branches of the static_if statement. Additionally, only one function must be type casted and tokenized upon compile time - proving to be even more efficient.
+
 **Community Response**
 
 To this point, the pros of static_if statements have been outlined. However, there are valid claims that have been brought up to challenge the percieved advantages of the static_if statement. They center around 3 reccurring design problems: conditionally included statements, conditionally defined interfaces, and constrainted templates.
