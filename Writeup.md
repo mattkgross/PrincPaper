@@ -106,4 +106,3 @@ This can be accordingly translated to the following static_if structure:
 
 **Conclusion & Closing Gestures**
 
-In the ensuing analysis, we will discuss both the benefits and repurcussions of such an addition to the C++11 language. This will provide additional weigh-in to a proposal currently up for adoption by the C++ Standards Committee.
