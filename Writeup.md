@@ -1,4 +1,4 @@
-C++ Static-if Implementation - A Critical Analysis
+C++ Static_if Implementation - A Critical Analysis
 ==================================================
 
 _Authors: Matthew Gross & Matthew Bubernak_
