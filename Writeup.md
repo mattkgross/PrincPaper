@@ -12,7 +12,7 @@ In late 2011, a new generalized compile-time conditional facility was proposed b
 
 Two possible outcomes may be provided in regards to the evaluation of the static_if predicate. The first, to be executed upon confirmation of a predicate match, is required. The second outcome may be listed using the else keyword. If no listing is made for the else condition, then an empty condition will be implied. The evaluation of the predicate and selection of the ensuing code sequence to execute, however, is proposed to be perfromed during compilation time, rather than run time, when using static_if. To guarantee evaluation, the predicate type passed to static_if must be analogous (and convertible) to a bool type. In order to ensure the ability of the predicate's evaluation at compile time, it must be a constant expression. Just as with normal if statements, nesting of loops, as well as else if statements would be permitted.
 
-Upon the 
+Upon the evaluation of the predicate 
 
 **Community Response**
 
