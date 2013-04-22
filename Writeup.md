@@ -110,7 +110,8 @@ The selective inclusion of statements in a translation unit composes conditional
 
 Another percieved advantage to static_if is the use of it as an alternative to traditional ways of compiletime source manipulation. The issue here is that there is no way to fully remove the use of #ifdef and macros and insatead the result will be a mixture of old and new techniques. In order to avoid the use of static_if and preprocessor tricks, one would probably end up having to move on to static_for, static_while, etc, and the result would be C++ becoming more low-leveled. 
 
-Static_if statements could potentially also present issues with template functions. Using static_if inside a template may prevent the compiler from performing even the simplest checks on template definitions. Static_if would essentially fail to improve the speed of checking template arguments or improving diagnostics. The compiler is unable to parse the branches branches of the compiler, which means that the library writer will be required to instance every branch of the template just to make sure the syntax is correct. This work is traditionally handled by the compiler. 
+Static_if statements could potentially also present issues with template functions. Using static_if inside a template may prevent the compiler from performing even the simplest checks on template definitions. Static_if would essentially fail to improve the speed of checking template arguments or improving diagnostics. The compiler is unable to parse the branches branches of the compiler, which means that the library writer will be required to instance every branch of the template just to make sure the syntax is correct. This work is traditionally handled by the compiler. Static_if can only tokenize code in template definitions, so templates using the features cannot have their types or semantic errors checked for without a proper AST. 
+
 
 
 
