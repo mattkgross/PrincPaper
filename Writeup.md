@@ -25,7 +25,28 @@ Two possible outcomes may be provided in regards to the evaluation of the static
 
 Upon the evaluation of the predicate, the correct resulting path is selected and then put in queue for compilation. The other path is discarded. In this case, we see an example of non-strict evaluation in that the unused path is discarded regardless of correctness or value. Only the correct path is then evaluated during compilation.
 
-In terms of scoping, this implementation would adhear to the scopes of namespace, class, and block. There is even the possibility this could extend to wherever c++ permits braces. It would be expected that static_if would adhere to similar scoping as static_assert. This scoping is significant in broadening the number of data types that the static_if can evaluate, as well as the allowing static_if to span a broader range of application.
+In terms of scoping, this implementation would adhear to the scopes of namespace, class, and block. There is even the possibility this could extend to wherever c++ permits braces. It would be expected that static_if would adhere to similar scoping as static_assert. This scoping is significant in broadening the number of data types that the static_if can evaluate, as well as the allowing static_if to span a broader range of application. An example of this broader scope can be seen within implementation using templates:
+
+static_if implementation within classes and templates:
+
+~~~~~~~~~~~~~~~~
+1| template< class T >
+2| class C
+3| {
+4|  void common( ) { ... }
+
+6|  static_if( has_property1<T>() ) {
+7|    void f1( ) { ... }
+8|  }
+
+10| static_if( has_property2<T>() ) {
+11|   void f2( ) { ... }
+12| }
+13| else {
+14|   void f2( ) = delete;
+15| }
+16|};
+~~~~~~~~~~~~~~~~
 
 **Community Response**
 
