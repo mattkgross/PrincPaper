@@ -62,6 +62,8 @@ static_if implementation within classes and templates:
 
 Furthermore, in regards to scoping, static_if's functionality is comparable to the c++ preprocessor's use of #if and #endif. This mechanism for conditional compilation follows similar semantics to the proposed static_if construct. The issue is that preprocessing operates in a scope that does not allow for the evaluation of constant expressions. Static_if would theoretically change this preprocessing system by including constant expressions in the scope of the if statement. 
 
+An added advantage to the use of static_if is the increased efficiency of functional overrides. 
+
 **Community Response**
 
 
