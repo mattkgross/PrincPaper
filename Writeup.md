@@ -27,6 +27,18 @@ Upon the evaluation of the predicate, the correct resulting path is selected and
 
 In terms of scoping, this implementation would adhear to the scopes of namespace, class, and block. There is even the possibility this could extend to wherever c++ permits braces. It would be expected that static_if would adhere to similar scoping as static_assert. This scoping is significant in broadening the number of data types that the static_if can evaluate, as well as the allowing static_if to span a broader range of application. An example of this broader scope can be seen within implementation using templates:
 
+In a hypothetical situation, one may have a series of constexpr function templates, each resemblign the below code: 
+
+~~~~~~~~~~~~~~~~
+1| template< class T >
+2| constexpr bool
+3| has_property_n( ) { return ...; }
+~~~~~~~~~~~~~~~~
+
+In this situation, there is a class template c that has a single type parameter, and the implementation of all the member functions of C depend on the truth values of the property inquiry functions. Currently in c++, n amount of property inquiries would require up to n non-type bool template parameters which furthermore provide up to 2^n specializations. Much of this code is redundant. 
+
+Static_if statements are the solutions to desired functionality. Instead of tag dispatch, code duplication, and extra template parameters, one can solve the problem with an if statement structure as presented below.  
+
 static_if implementation within classes and templates:
 
 ~~~~~~~~~~~~~~~~
