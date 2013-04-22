@@ -39,7 +39,7 @@ In this situation, there is a class template, *C*, that has a single type parame
 
 Static_if statements are the solutions to desired functionality. Instead of tag dispatch, code duplication, and extra template parameters, one can solve the problem with an if statement structure as presented below.  
 
-static_if implementation within classes and templates:
+Static_if implementation within classes and templates:
 
 ~~~~~~~~~~~~~~~~
 1| template< class T >
