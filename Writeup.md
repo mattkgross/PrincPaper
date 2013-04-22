@@ -14,6 +14,8 @@ Two possible outcomes may be provided in regards to the evaluation of the static
 
 Upon the evaluation of the predicate, the correct resulting path is selected and then put in queue for compilation. The other path is discarded. In this case, we see an example of non-strict evaluation in that the unused path is discarded regardless of correctness or value. Only the correct path is then evaluated during compilation.
 
+In terms of scoping, this implementation would adhear to the scopes of namespace, class, and block. There is even the possibility this could extend to wherever c++ permits braces. It would be expected that static_if would adhere to similar scoping as static_assert.
+
 **Community Response**
 
 The result of this implementation would mean that, at compile time, only one section of code (rather than both) would be required to be tokenized, compiled, and run. The section to which the predicate evaluation does not apply would simply be ignored by the compiler.
