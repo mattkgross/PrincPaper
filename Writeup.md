@@ -62,7 +62,43 @@ static_if implementation within classes and templates:
 
 Furthermore, in regards to scoping, static_if's functionality is comparable to the c++ preprocessor's use of #if and #endif. This mechanism for conditional compilation follows similar semantics to the proposed static_if construct. The issue is that preprocessing operates in a scope that does not allow for the evaluation of constant expressions. Static_if would theoretically change this preprocessing system by including constant expressions in the scope of the if statement. 
 
-An added advantage to the use of static_if is the increased efficiency of functional overrides. 
+An added advantage to the use of static_if is the increased efficiency of functional overrides. Below, we see an example of three functional overrrides:
+
+~~~~~~~~~~~~~~~~
+1|  template <class BidirectionalIterator>
+2|  inline void
+3|  evolve(BidirectionalIterator first, BidirectionalIterator last) {
+4|  evolve(first, last,
+5|  typename iterator_traits<BidirectionalIterator>::iterator_category());
+6|  }
+8|  template <class BidirectionalIterator>
+9|  void evolve(BidirectionalIterator first, BidirectionalIterator last,
+10| bidirectional_iterator_tag) {
+11| // more generic, but less efficient algorithm
+12| }
+14| template <class RandomAccessIterator>
+15| void evolve(RandomAccessIterator first, RandomAccessIterator last,
+16| random_access_iterator_tag) {
+17| // more efficient, but less generic algorithm
+18| }
+~~~~~~~~~~~~~~~~
+
+This can be accordingly translated to the following static_if structure:
+
+~~~~~~~~~~~~~~~~
+1|  template <class Iterator>
+2|  inline void
+3|  evolve(Iterator first, Iterator last)
+4|  static_if( is_bidirectional<Iterator>() ) {
+5|  // more generic, but less efficient algorithm
+6|  }
+7|  elseif( is_random_access<Iterator>() ) {
+8|  // more efficient, but less generic algorithm
+9|  }
+10| else {
+11| issue_diagnostic(...);
+12| }
+~~~~~~~~~~~~~~~~
 
 **Community Response**
 
