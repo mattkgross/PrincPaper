@@ -6,7 +6,7 @@ _Authors: Matthew Gross & Matthew Bubernak_
 
 **Introduction** 
 
-In late 2011, a new generalized compile-time conditional facility was proposed by Walter E. Brown: static_if. The proposed symantics of static_if would be similar in nature to the pre-existing, conventional "if" in that a predicate condition would be stated and two outcomes would be accordingly listed. The motivation behind this change is centered around the thought process of creating a more efficient and lightweight runtime space. By performing, essentially, pre-compile if statements, potentially unreachable code can be discarded and only the appropriate predicate result will be included in the final process compile code.
+In late 2011, a new generalized compile-time conditional facility was proposed by Walter E. Brown: static_if. The proposed semantics of static_if would be similar in nature to the pre-existing, conventional "if" in that a predicate condition would be stated and two outcomes would be accordingly listed. The motivation behind this change is centered around the thought process of creating a more efficient and lightweight runtime space. By performing, essentially, pre-compile if statements, potentially unreachable code can be discarded and only the appropriate predicate result will be included in the final process compile code.
 
 The simple, standard syntax and implementation, as seen in the initial proposal:
 
@@ -21,13 +21,13 @@ The simple, standard syntax and implementation, as seen in the initial proposal:
 
 **Symantics & Attributes**
 
-Two possible outcomes may be provided in regards to the evaluation of the static_if predicate. The first, to be executed upon confirmation of a predicate match, is required. The second outcome may be listed using the else keyword. If no listing is made for the else condition, then an empty condition will be implied. The evaluation of the predicate and selection of the ensuing code sequence to execute, however, is proposed to be perfromed during compilation time, rather than run time, when using static_if. To guarantee evaluation, the predicate type passed to static_if must be analogous (and convertible) to a bool type. In order to ensure the ability of the predicate's evaluation at compile time, it must be a constant expression. Just as with normal if statements, nesting of loops, as well as else if statements would be permitted.
+Two possible outcomes may be provided in regards to the evaluation of the static_if predicate. The first, to be executed upon confirmation of a predicate match, is required. The second outcome may be listed using the else keyword. If no listing is made for the else condition, then an empty condition will be implied. The evaluation of the predicate and selection of the ensuing code sequence to execute, however, is proposed to be performed during compilation time, rather than run time, when using static_if. To guarantee evaluation, the predicate type passed to static_if must be analogous (and convertible) to a boolean type. In order to ensure the ability of the predicate's evaluation at compile time, it must be a constant expression. Just as with normal if statements, nesting of loops, as well as else if statements would be permitted.
 
-Upon the evaluation of the predicate, the correct resulting path is selected and then put in queue for compilation. The other path is discarded. In this case, we see an example of non-strict evaluation in that the unused path is discarded regardless of correctness or value. Only the correct path is then evaluated during compilation. In addition, this signifies that, at compile time, only one section of code (rather than both) would be required to be tokenized, compiled, and run. The section to which the predicate evaluation does not apply would simply be ignored by the compiler (again, showing a non-strict evaluational nature).
+Upon the evaluation of the predicate, the correct resulting path is selected and then put in queue for compilation. The other path is discarded. In this case, we see an example of non-strict evaluation in that the unused path is discarded regardless of correctness or value. Only the correct path is then evaluated during compilation. In addition, this signifies that, at compile time, only one section of code (rather than both) would be required to be tokenized, compiled, and run. The section to which the predicate evaluation does not apply would simply be ignored by the compiler (again, showing a non-strict evaluative nature).
 
-In terms of scoping, this implementation would adhear to the scopes of namespace, class, and block. There is even the possibility this could extend to wherever c++ permits braces. It would be expected that static_if would adhere to similar scoping as static_assert. This scoping is significant in broadening the number of data types that the static_if can evaluate, as well as the allowing static_if to span a broader range of application. An example of this broader scope can be seen within implementation using templates:
+In terms of scoping, this implementation would adhere to the scopes of namespace, class, and block. There is even the possibility this could extend to wherever c++ permits braces. It would be expected that static_if would adhere to similar scoping as static_assert. This scoping is significant in broadening the number of data types that the static_if can evaluate, as well as the allowing static_if to span a broader range of application. An example of this broader scope can be seen within implementation using templates:
 
-In a hypothetical situation, one may have a series of constexpr function templates, each resembling the below code: 
+In a hypothetical situation, one may have a series of *constexpr* function templates, each resembling the below code: 
 
 ~~~~~~~~~~~~~~~~
 1| template< class T >
@@ -35,7 +35,7 @@ In a hypothetical situation, one may have a series of constexpr function templat
 3| has_property_n( ) { return ...; }
 ~~~~~~~~~~~~~~~~
 
-In this situation, there is a class template c that has a single type parameter, and the implementation of all the member functions of C depend on the truth values of the property inquiry functions. Currently in c++, n amount of property inquiries would require up to n non-type bool template parameters which furthermore provide up to 2^n specializations. Much of this code is redundant. 
+In this situation, there is a class template c that has a single type parameter, and the implementation of all the member functions of C depend on the truth values of the property inquiry functions. Currently in c++, n amount of property inquiries would require up to n non-type boolean template parameters which furthermore provide up to 2^n specializations. Much of this code is redundant. 
 
 Static_if statements are the solutions to desired functionality. Instead of tag dispatch, code duplication, and extra template parameters, one can solve the problem with an if statement structure as presented below.  
 
@@ -100,17 +100,17 @@ This can be accordingly translated to the following static_if structure:
 12| }
 ~~~~~~~~~~~~~~~~
 
-From a parsing standpoint, the static_if implementation proves more friendly on the tokenizer, as only one template must be declared and its scoping extends to all three predicate branches of the static_if statement. Additionally, only one function must be type casted and tokenized upon compile time - proving to be even more efficient.
+From a parsing standpoint, the static_if implementation proves friendlier on the tokenizer, as only one template must be declared and its scoping extends to all three predicate branches of the static_if statement. Additionally, only one function must be type casted and tokenized upon compile time - proving to be even more efficient.
 
 **Community Response**
 
-To this point, the pros of static_if statements have been outlined. However, there are valid claims that have been brought up to challenge the perceived advantages of the static_if statement. They center around 3 reccurring design problems: conditionally included statements, conditionally defined interfaces, and constrainted templates.
+To this point, the pros of static_if statements have been outlined. However, there are valid claims that have been brought up to challenge the perceived advantages of the static_if statement. They center around three recurring design problems: conditionally included statements, conditionally defined interfaces, and constrained templates.
 
 The selective inclusion of statements in a translation unit composes conditional compilation. In contrast to normal if statements, static_if statement's braces do not indicate a new scope, and any declarations within them simply are simply included in whatever scope contains the static if block. For this reason, confusion is sure to arise in regards to scoping if static and non-static if statements are used. 
 
-Another advertised advantage to static_if its use as an alternative to traditional ways of compile time source manipulation. The issue here is that there is no way to fully remove the use of #ifdef and macros and insatead the result will be a mixture of old and new techniques. In order to avoid the use of static_if and preprocessor tricks, one would probably end up having to move on to static_for, static_while, etc, and the result would be C++ becoming more low-leveled. 
+Another advertised advantage to static_if its use as an alternative to traditional ways of compile time source manipulation. The issue here is that there is no way to fully remove the use of #ifdef and macros and instead the result will be a mixture of old and new techniques. In order to avoid the use of static_if and preprocessor tricks, one would probably end up having to move on to static_for, static_while, etc, and the result would be C++ becoming more low-leveled. 
 
-Static_if statements could potentially also present issues with template functions. Using static_if inside a template may prevent the compiler from performing even the simplest checks on template definitions. Static_if would essentially fail to improve the speed of checking template arguments or improving diagnostics. The compiler is unable to parse the branches branches of the compiler, which means that the library writer will be required to instance every branch of the template just to make sure the syntax is correct. This work is traditionally handled by the compiler. Static_if can only tokenize code in template definitions, so templates using the features cannot have their types or semantic errors checked for without a proper AST. 
+Static_if statements could potentially also present issues with template functions. Using static_if inside a template may prevent the compiler from performing even the simplest checks on template definitions. Static_if would essentially fail to improve the speed of checking template arguments or improving diagnostics. The compiler is unable to parse the branches of the compiler, which means that the library writer will be required to instance every branch of the template just to make sure the syntax is correct. This work is traditionally handled by the compiler. Static_if can only tokenize code in template definitions, so templates using the features cannot have their types or semantic errors checked for without a proper AST. 
 
 **Conclusion & Closing Gestures**
 
