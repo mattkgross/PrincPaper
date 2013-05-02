@@ -3,7 +3,7 @@ C++ Static_if Implementation - A Critical Analysis
 
 **_Authors: Matthew Gross & Matthew Bubernak_**
 
-*Word Count: 1209*
+*Word Count(Excluding Code): 1209*
 
 **Introduction** 
 
