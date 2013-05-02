@@ -5,6 +5,8 @@ C++ Static_if Implementation - A Critical Analysis
 
 *Word Count (Excluding Code): 1209*
 
+Collaboration Repository: https://github.com/mattkgross/PrincPaper
+
 **Introduction** 
 
 In late 2011, a new generalized compile-time conditional facility was proposed by Walter E. Brown: *static_if*. The proposed semantics of *static_if* would be similar in nature to the pre-existing, conventional "if" in that a predicate condition would be stated and two outcomes would be accordingly listed. The motivation behind this change is centered around the thought process of creating a more efficient and lightweight runtime space. By performing, essentially, pre-compile if statements, potentially unreachable code can be discarded and only the appropriate predicate result will be included in the final process compile code.
