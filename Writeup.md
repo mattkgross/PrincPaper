@@ -22,11 +22,11 @@ The simple, standard syntax and implementation, as seen in the initial proposal:
 
 **Semantics & Attributes**
 
-Two possible outcomes may be provided in regards to the evaluation of the static_if predicate. The first, to be executed upon confirmation of a predicate match, is required. The second outcome may be listed using the else keyword. If no listing is made for the else condition, then an empty condition will be implied. The evaluation of the predicate and selection of the ensuing code sequence to execute, however, is proposed to be performed during compilation time, rather than run time, when using static_if. To guarantee evaluation, the predicate type passed to static_if must be analogous (and convertible) to a boolean type. In order to ensure the ability of the predicate's evaluation at compile time, it must be a constant expression. Just as with normal if statements, nesting of loops, as well as else if statements, would be permitted.
+Two possible outcomes may be provided in regards to the evaluation of the *static_if* predicate. The first, to be executed upon confirmation of a predicate match, is required. The second outcome may be listed using the else keyword. If no listing is made for the else condition, then an empty condition will be implied. The evaluation of the predicate and selection of the ensuing code sequence to execute, however, is proposed to be performed during compilation time, rather than run time, when using *static_if*. To guarantee evaluation, the predicate type passed to *static_if* must be analogous (and convertible) to a boolean type. In order to ensure the ability of the predicate's evaluation at compile time, it must be a constant expression. Just as with normal if statements, nesting of loops, as well as else if statements, would be permitted.
 
 Upon the evaluation of the predicate, the correct resulting path is selected and then put in queue for compilation. The other path is discarded. In this case, we see an example of non-strict evaluation in that the unused path is discarded regardless of correctness or value. Only the correct path is then evaluated during compilation. In addition, this signifies that, at compile time, only one section of code (rather than both) would be required to be tokenized, compiled, and run. The section to which the predicate evaluation does not apply would simply be ignored by the compiler (again, showing a non-strict evaluative nature).
 
-In terms of scoping, this implementation would adhere to the scopes of namespace, class, and block. There is even the possibility this could extend to wherever C++ permits braces. In a general sense it would be expected that static_if would adhere to similar scoping as static_assert. This scoping is significant in broadening the number of data types that the static_if can evaluate, as well as allowing static_if to span a broader range of application. An example of this broader scope can be seen within implementation using templates.
+In terms of scoping, this implementation would adhere to the scopes of namespace, class, and block. There is even the possibility this could extend to wherever C++ permits braces. In a general sense it would be expected that *static_if* would adhere to similar scoping as *static_assert*. This scoping is significant in broadening the number of data types that the *static_if* can evaluate, as well as allowing *static_if* to span a broader range of application. An example of this broader scope can be seen within implementation using templates.
 
 In a hypothetical situation, one may have a series of *constexpr* function templates, each resembling the below code: 
 
@@ -38,9 +38,9 @@ In a hypothetical situation, one may have a series of *constexpr* function templ
 
 In this situation, there is a class template, *C*, that has a single type parameter. The implementation of all the member functions of *C* depend on the truth values of the property inquiry functions. Currently, in C++, *n* amount of property inquiries would require up to *n* non-type boolean template parameters which furthermore provide up to *2^n* specializations. Much of this code is redundant. 
 
-Static_if statements are the solutions to desired functionality. Instead of tag dispatch, code duplication, and extra template parameters, one can solve the problem with an if statement structure as presented below.  
+*Static_if* statements are the solutions to desired functionality. Instead of tag dispatch, code duplication, and extra template parameters, one can solve the problem with an if statement structure as presented below.  
 
-Static_if implementation within classes and templates:
+*Static_if* implementation within classes and templates:
 
 ~~~~~~~~~~~~~~~~
 1| template< class T >
@@ -61,9 +61,9 @@ Static_if implementation within classes and templates:
 16|};
 ~~~~~~~~~~~~~~~~
 
-Furthermore, in regards to scoping, static_if's functionality is comparable to the C++ preprocessor's use of *#if* and *#endif*. This mechanism for conditional compilation follows similar semantics to the proposed static_if construct. The issue is that preprocessing operates in a scope that does not allow for the evaluation of constant expressions. Static_if would theoretically change this preprocessing system by including constant expressions in the scope of the if statement. 
+Furthermore, in regards to scoping, *static_if*'s functionality is comparable to the C++ preprocessor's use of *#if* and *#endif*. This mechanism for conditional compilation follows similar semantics to the proposed *static_if* construct. The issue is that preprocessing operates in a scope that does not allow for the evaluation of constant expressions. *Static_if* would theoretically change this preprocessing system by including constant expressions in the scope of the if statement. 
 
-An added advantage to the use of static_if is the increased efficiency of functional overrides. Below, we see an example of three functional overrrides:
+An added advantage to the use of *static_if* is the increased efficiency of functional overrides. Below, we see an example of three functional overrrides:
 
 ~~~~~~~~~~~~~~~~
 1|  template <class BidirectionalIterator>
@@ -84,7 +84,7 @@ An added advantage to the use of static_if is the increased efficiency of functi
 18| }
 ~~~~~~~~~~~~~~~~
 
-This can be accordingly translated to the following static_if structure:
+This can be accordingly translated to the following *static_if* structure:
 
 ~~~~~~~~~~~~~~~~
 1|  template <class Iterator>
